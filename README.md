@@ -5,9 +5,9 @@ This demonstrates a flaw in Heroku's build process for Python projects.
 This project uses the standard `heroku-python-buildpack` written by
 Heroku, and `pipenv`, which is supported by Heroku.
 
-## Problem
+## The problem
 
-Deploying this the **first** time succeeds. Deploying any other time **fails silently**.
+Deploying this project the **first** time succeeds. Deploying any other time **fails silently**.
 Heroku will think the build succeeded, but the application will be missing
 dependencies and crash.
 
@@ -21,8 +21,11 @@ heroku git:remote -a debug-heroku-pipenv
 git push heroku
 #     Build succeeds
 #     Website works: https://debug-heroku-pipenv-#####.herokuapp.com/
+```
 
+![Deployment failure](screenshot-success.png)
 
+```bash
 # Second deployment of identical code
 git commit --allow-empty -m "Purge cache"
 git push heroku
@@ -30,9 +33,11 @@ git push heroku
 #     Website BROKEN! https://debug-heroku-pipenv-#####.herokuapp.com/
 ```
 
+![Deployment failure](screenshot-failure.png)
+
 Inspecting the logs, it's clear that the locally installed package is not found.
 
-```
+```bash
 heroku logs --tail
 
 ...
