@@ -1,0 +1,1 @@
+web: gunicorn --bind 0.0.0.0:$PORT --worker-class gevent --capture-output --log-file - --log-level info --access-logfile - --max-requests 10000 --max-requests-jitter 1000 --disable-redirect-access-to-syslog application:app
